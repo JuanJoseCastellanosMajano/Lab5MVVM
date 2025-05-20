@@ -1,4 +1,4 @@
-package com.gallo.labo07fabio
+package com.JuanCastellanos.labo07ubicacion
 
 import org.junit.Test
 

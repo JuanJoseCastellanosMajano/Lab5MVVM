@@ -1,4 +1,4 @@
-package com.gallo.labo07fabio.ui.theme
+package com.JuanCastellanos.labo07ubicacion.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

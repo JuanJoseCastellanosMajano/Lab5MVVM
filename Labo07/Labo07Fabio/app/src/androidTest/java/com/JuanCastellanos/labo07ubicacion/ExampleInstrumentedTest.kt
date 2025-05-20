@@ -1,4 +1,4 @@
-package com.gallo.labo07fabio
+package com.JuanCastellanos.labo07ubicacion
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

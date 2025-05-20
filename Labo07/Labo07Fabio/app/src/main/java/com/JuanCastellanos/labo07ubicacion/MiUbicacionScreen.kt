@@ -1,4 +1,4 @@
-package com.gallo.labo07fabio
+package com.JuanCastellanos.labo07ubicacion
 
 import android.Manifest
 import android.content.Context
@@ -26,22 +26,19 @@ import com.google.android.gms.tasks.CancellationTokenSource
 @Composable
 fun MiUbicacionScreen(fusedLocationClient: FusedLocationProviderClient) {
 
-    // Creacion del contexto
+
     val context = LocalContext.current
-    // Estado de permisos
     val fineAccessPermises = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val coarseAccessPermises = rememberPermissionState(Manifest.permission.ACCESS_COARSE_LOCATION)
-    // Texto para mostrar la ubicacion
     var locationText = remember { mutableStateOf("Presiona el botón para obtener la ubicación.") }
 
-    // Solicitar permisos de ubicación al iniciar la pantalla
     LaunchedEffect(Unit) {
         if (!coarseAccessPermises.status.isGranted) {
-            coarseAccessPermises.launchPermissionRequest() // Solicitar permisos de ubicación
+            coarseAccessPermises.launchPermissionRequest()
         } else if (!fineAccessPermises.status.isGranted) {
-            fineAccessPermises.launchPermissionRequest() // Solicitar permisos de ubicación
+            fineAccessPermises.launchPermissionRequest()
         }else{
-            // Si los permisos ya están concedidos, obtener la ubicación actual
+
             obtenerUbicacionActual(context, fusedLocationClient){
                 lat, lon ->
                 locationText.value = if (lat != null && lon != null) {
@@ -53,19 +50,19 @@ fun MiUbicacionScreen(fusedLocationClient: FusedLocationProviderClient) {
         }
     }
 
-    // Composición de la UI
+
     Column(
         modifier = Modifier.padding(30.dp)
     ) {
         Text( text = locationText.value)
         Button(onClick = {
-            // Solicitar permisos de ubicación al presionar el botón
+
             if (!coarseAccessPermises.status.isGranted) {
                 coarseAccessPermises.launchPermissionRequest()
             } else if (!fineAccessPermises.status.isGranted) {
                 fineAccessPermises.launchPermissionRequest()
             }
-            // Si los permisos ya están concedidos, obtener la ubicación actual
+
             else{
                 locationText.value = "Permiso concedido. Obteniendo ubicación..."
 
@@ -96,7 +93,7 @@ private fun obtenerUbicacionActual(
         cancellationTokenSource.token
     )
         .addOnSuccessListener { location: Location? ->
-        // Manejo de la ubicación obtenida
+
         if (location != null) {
             onLocationResult(location.latitude, location.longitude)
         } else {
@@ -105,7 +102,6 @@ private fun obtenerUbicacionActual(
         }
     }
         .addOnFailureListener { exception ->
-        // Manejo de errores al obtener la ubicación
         onLocationResult(null, null)
         Toast.makeText(context, "Error al obtener ubicación: ${exception.message}", Toast.LENGTH_LONG).show()
     }
